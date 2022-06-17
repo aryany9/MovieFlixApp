@@ -6,11 +6,10 @@ import 'package:movieflixapp/models/nowplayingmodel.dart';
 
 class MovieCard extends StatelessWidget {
   final TMDBController controller = Get.find<TMDBController>();
-  Result result;
+  Result? result;
   int id;
   int index;
-  MovieCard(
-      {Key? key, required this.result, required this.id, required this.index})
+  MovieCard({Key? key, this.result, required this.id, required this.index})
       : super(key: key);
 
   @override
@@ -21,7 +20,7 @@ class MovieCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedNetworkImage(
-            imageUrl: 'https://image.tmdb.org/t/p/w342${result.posterPath}',
+            imageUrl: 'https://image.tmdb.org/t/p/w342${result?.posterPath}',
             errorWidget: (context, url, error) => const Icon(
               Icons.error,
               color: Colors.amber,
@@ -43,7 +42,7 @@ class MovieCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    result.originalTitle!,
+                    result?.originalTitle ?? 'title',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -54,7 +53,7 @@ class MovieCard extends StatelessWidget {
                   const SizedBox(height: 10),
                   Flexible(
                     child: Text(
-                      result.overview!,
+                      result?.overview ?? 'overview',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

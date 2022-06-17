@@ -35,7 +35,9 @@ dependencies:
   cached_network_image: ^3.2.0
   flutter_blurhash: ^0.6.4
   progressive_image: ^2.0.0
-  json_serializable: ^6.2.0
+  
+  # Starting with json annotation pacakage
+  json_annotation: ^4.5.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -44,6 +46,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+  # Starting with json serialization pacakage
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

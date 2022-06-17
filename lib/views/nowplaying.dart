@@ -87,11 +87,12 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
           itemBuilder: (context, index) => Obx(
             () => InkWell(
               onTap: () {
+                print(controller.allNowPlayingMovies?[index].title);
                 Get.toNamed(
-                    '/MovieDetails/${controller.allNowPlayingMovies!.value[index].id}');
+                    '/MovieDetails/${controller.allNowPlayingMovies?.value[index].id}');
               },
               child: MovieCard(
-                result: controller.allNowPlayingMovies![index],
+                result: controller.allNowPlayingMovies?[index],
                 id: 0,
                 index: index,
               ),

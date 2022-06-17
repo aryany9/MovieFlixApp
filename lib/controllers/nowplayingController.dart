@@ -17,21 +17,23 @@ class TMDBController extends GetxController {
   }
 
   fetchNowplayingList() async {
-    NowPlayingModel response = await TMDBApiService.fetchList();
+    NowPlayingModel? response = await TMDBApiService.fetchList();
     if (response != null) {
       print("Fetched");
       allNowPlayingMovies?.value = response.results!;
-      print(allNowPlayingMovies);
+      allNowPlayingMovies?.forEach((element) {
+        print(element.title);
+      });
     } else {
       print(response);
     }
   }
 
   fetchTopRatedMovies() async {
-    NowPlayingModel response = await TMDBApiService.fetchTopRatedList();
+    NowPlayingModel? response = await TMDBApiService.fetchTopRatedList();
     if (response != null) {
       print("Fetched");
-      allTopRatedMovies?.value = response.results!;
+      allTopRatedMovies?.value = await response.results!;
       print(allTopRatedMovies);
     } else {
       print(response);

@@ -1,15 +1,8 @@
-// To parse this JSON data, do
-//
-//     final nowPlayingModel = nowPlayingModelFromJson(jsonString);
+import 'package:json_annotation/json_annotation.dart';
 
-import 'dart:convert';
+part 'nowplayingmodel.g.dart';
 
-NowPlayingModel nowPlayingModelFromJson(String str) =>
-    NowPlayingModel.fromJson(json.decode(str));
-
-String nowPlayingModelToJson(NowPlayingModel data) =>
-    json.encode(data.toJson());
-
+@JsonSerializable()
 class NowPlayingModel {
   NowPlayingModel({
     this.dates,
@@ -26,27 +19,12 @@ class NowPlayingModel {
   int? totalResults;
 
   factory NowPlayingModel.fromJson(Map<String, dynamic> json) =>
-      NowPlayingModel(
-        dates: json["dates"] == null ? null : Dates.fromJson(json["dates"]),
-        page: json["page"],
-        results: json["results"] == null
-            ? null
-            : List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        totalPages: json["total_pages"],
-        totalResults: json["total_results"],
-      );
+      _$NowPlayingModelFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "dates": dates == null ? null : dates?.toJson(),
-        "page": page,
-        "results": results == null
-            ? null
-            : List<dynamic>.from(results!.map((x) => x.toJson())),
-        "total_pages": totalPages,
-        "total_results": totalResults,
-      };
+  Map<String, dynamic> toJson() => _$NowPlayingModelToJson(this);
 }
 
+@JsonSerializable()
 class Dates {
   Dates({
     this.maximum,
@@ -56,23 +34,11 @@ class Dates {
   DateTime? maximum;
   DateTime? minimum;
 
-  factory Dates.fromJson(Map<String, dynamic> json) => Dates(
-        maximum:
-            json["maximum"] == null ? null : DateTime.parse(json["maximum"]),
-        minimum:
-            json["minimum"] == null ? null : DateTime.parse(json["minimum"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "maximum": maximum == null
-            ? null
-            : "${maximum?.year.toString().padLeft(4, '0')}-${maximum?.month.toString().padLeft(2, '0')}-${maximum?.day.toString().padLeft(2, '0')}",
-        "minimum": minimum == null
-            ? null
-            : "${minimum?.year.toString().padLeft(4, '0')}-${minimum?.month.toString().padLeft(2, '0')}-${minimum?.day.toString().padLeft(2, '0')}",
-      };
+  factory Dates.fromJson(Map<String, dynamic> json) => _$DatesFromJson(json);
+  Map<String, dynamic> toJson() => _$DatesToJson(this);
 }
 
+@JsonSerializable()
 class Result {
   Result({
     this.adult,
@@ -106,54 +72,8 @@ class Result {
   double? voteAverage;
   int? voteCount;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-        adult: json["adult"],
-        backdropPath: json["backdrop_path"],
-        genreIds: json["genre_ids"] == null
-            ? null
-            : List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        originalLanguage: json["original_language"] == null
-            ? null
-            : originalLanguageValues.map?[json["original_language"]],
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        popularity:
-            json["popularity"] == null ? null : json["popularity"].toDouble(),
-        posterPath: json["poster_path"],
-        releaseDate: json["release_date"] == null
-            ? null
-            : DateTime.parse(json["release_date"]),
-        title: json["title"],
-        video: json["video"],
-        voteAverage: json["vote_average"] == null
-            ? null
-            : json["vote_average"].toDouble(),
-        voteCount: json["vote_count"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "adult": adult,
-        "backdrop_path": backdropPath,
-        "genre_ids": genreIds == null
-            ? null
-            : List<dynamic>.from(genreIds!.map((x) => x)),
-        "id": id,
-        "original_language": originalLanguage == null
-            ? null
-            : originalLanguageValues.reverse[originalLanguage],
-        "original_title": originalTitle,
-        "overview": overview,
-        "popularity": popularity,
-        "poster_path": posterPath,
-        "release_date": releaseDate == null
-            ? null
-            : "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
-        "title": title,
-        "video": video,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
-      };
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
+  Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
 
 enum OriginalLanguage { EN, FR, JA }
